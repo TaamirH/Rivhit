@@ -93,9 +93,10 @@ export function RegisterPage() {
   }
 
   return (
-    <div style={{ maxWidth: 420, margin: '40px auto' }}>
+    <div className="container" style={{ maxWidth: 420 }}>
       <h1>Register</h1>
-      <form onSubmit={onSubmit}>
+      <div className="card">
+        <form onSubmit={onSubmit}>
         <label>
           Email
           <input
@@ -123,17 +124,20 @@ export function RegisterPage() {
           {busy ? 'Creating...' : 'Create account'}
         </button>
         {!canSubmit && !busy ? <p style={{ marginBottom: 0 }}>Fix the errors above to continue.</p> : null}
-      </form>
-      {error ? <p style={{ color: 'crimson' }}>{error}</p> : null}
-      <p>
-        Have an account? <Link to="/login">Login</Link>
-      </p>
-      <div style={{ padding: 12, border: '1px solid #ddd', borderRadius: 8 }}>
-        <p style={{ margin: '0 0 8px 0' }}><b>Password requirements</b></p>
-        <p style={{ margin: 0 }}>- At least 8 characters</p>
-        <p style={{ margin: 0 }}>- At least one uppercase letter (A-Z)</p>
-        <p style={{ margin: 0 }}>- At least one lowercase letter (a-z)</p>
-        <p style={{ margin: 0 }}>- At least one number (0-9)</p>
+        </form>
+        {error ? <p style={{ color: 'crimson' }}>{error}</p> : null}
+        <p style={{ marginBottom: 0 }}>
+          Have an account? <Link to="/login">Login</Link>
+        </p>
+        <div style={{ marginTop: 12 }}>
+          <p style={{ margin: '0 0 8px 0' }}>
+            <b>Password requirements</b>
+          </p>
+          <p style={{ margin: 0 }}>- At least 8 characters</p>
+          <p style={{ margin: 0 }}>- At least one uppercase letter (A-Z)</p>
+          <p style={{ margin: 0 }}>- At least one lowercase letter (a-z)</p>
+          <p style={{ margin: 0 }}>- At least one number (0-9)</p>
+        </div>
       </div>
     </div>
   )

@@ -3,9 +3,22 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /* Rivhit brand palette */
+  --color-primary: #241D4E;
+  --color-secondary: #F48218;
+  --color-bg: var(--color-primary);
+  --color-text: #ffffff;
+  --color-muted: rgba(255, 255, 255, 0.78);
+
+  --color-surface: #f6f4fb;
+  --color-surface-text: #241D4E;
+  --color-surface-muted: rgba(36, 29, 78, 0.7);
+  --color-border: rgba(36, 29, 78, 0.18);
+  --shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+
+  color-scheme: dark;
+  color: var(--color-text);
+  background-color: var(--color-bg);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,22 +28,50 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--color-secondary);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #ffd1a3;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: var(--color-bg);
+  color: var(--color-text);
 }
 
 h1 {
   font-size: 2rem;
   line-height: 1.2;
+  margin: 0 0 12px 0;
+}
+
+/* Layout helpers */
+.container {
+  max-width: 900px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.card {
+  background: var(--color-surface);
+  color: var(--color-surface-text);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
+
+.card h2 {
+  margin: 0 0 8px 0;
+  font-size: 1.2rem;
+}
+
+.muted {
+  color: var(--color-surface-muted);
 }
 
 input {
@@ -39,10 +80,16 @@ input {
   padding: 0.6em 0.8em;
   font-size: 1em;
   border-radius: 8px;
-  border: 1px solid #444;
-  background: transparent;
-  color: inherit;
+  border: 1px solid var(--color-border);
+  background: #fbfaff;
+  color: var(--color-surface-text);
   box-sizing: border-box;
+}
+
+input:focus {
+  outline: 3px solid rgba(244, 130, 24, 0.35);
+  outline-offset: 1px;
+  border-color: var(--color-secondary);
 }
 
 label {
@@ -57,27 +104,78 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--color-secondary);
+  color: #ffffff;
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: transform 0.05s, filter 0.2s;
 }
 button:hover {
-  border-color: #646cff;
+  filter: brightness(1.05);
+}
+button:active {
+  transform: translateY(1px);
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 3px solid rgba(244, 130, 24, 0.6);
+  outline-offset: 2px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
+
+/* Nav */
+.nav {
+  position: sticky;
+  top: 0;
+  background: rgba(36, 29, 78, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.navInner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 12px 16px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+
+.nav a {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.nav a:hover {
+  color: var(--color-secondary);
+}
+
+.navSpacer {
+  flex: 1;
+}
+
+.navEmail {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.95rem;
+}
+
+/* Table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-surface-text);
+}
+
+.table td {
+  padding: 10px 8px;
+  border-bottom: 1px solid rgba(36, 29, 78, 0.08);
+}
+

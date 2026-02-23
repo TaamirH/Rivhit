@@ -60,13 +60,13 @@ export function DashboardPage() {
   const open = statusQuery.data?.openShift ?? null
 
   return (
-    <div style={{ maxWidth: 720, margin: '20px auto' }}>
+    <div className="container" style={{ maxWidth: 720 }}>
       <h1>Dashboard</h1>
 
       {statusQuery.isLoading ? <p>Loading status...</p> : null}
       {statusQuery.isError ? <p style={{ color: 'crimson' }}>Failed to load status.</p> : null}
 
-      <div style={{ padding: 12, border: '1px solid #ddd', borderRadius: 8 }}>
+      <div className="card">
         <p>
           Status: <b>{open ? 'Clocked in' : 'Clocked out'}</b>
         </p>

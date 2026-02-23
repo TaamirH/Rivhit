@@ -28,9 +28,10 @@ export function LoginPage() {
   }
 
   return (
-    <div style={{ maxWidth: 420, margin: '40px auto' }}>
+    <div className="container" style={{ maxWidth: 420 }}>
       <h1>Login</h1>
-      <form onSubmit={onSubmit}>
+      <div className="card">
+        <form onSubmit={onSubmit}>
         <label>
           Email
           <input value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
@@ -47,11 +48,12 @@ export function LoginPage() {
         <button disabled={busy} type="submit">
           {busy ? 'Signing in...' : 'Sign in'}
         </button>
-      </form>
-      {error ? <p style={{ color: 'crimson' }}>{error}</p> : null}
-      <p>
-        No account? <Link to="/register">Register</Link>
-      </p>
+        </form>
+        {error ? <p style={{ color: 'crimson' }}>{error}</p> : null}
+        <p style={{ marginBottom: 0 }}>
+          No account? <Link to="/register">Register</Link>
+        </p>
+      </div>
     </div>
   )
 }

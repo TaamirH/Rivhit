@@ -90,25 +90,25 @@ export function HistoryPage() {
   const monthStats = shiftsQuery.data ? computeThisMonthStats(shiftsQuery.data) : null
 
   return (
-    <div style={{ maxWidth: 900, margin: '20px auto' }}>
+    <div className="container">
       <h1>History</h1>
       {shiftsQuery.isLoading ? <p>Loading shifts...</p> : null}
       {shiftsQuery.isError ? <p style={{ color: 'crimson' }}>Failed to load shifts.</p> : null}
 
       {monthStats ? (
-        <div style={{ padding: 12, border: '1px solid #ddd', borderRadius: 8, margin: '12px 0' }}>
-          <h2 style={{ margin: '0 0 8px 0', fontSize: '1.2rem' }}>This month</h2>
+        <div className="card" style={{ margin: '12px 0' }}>
+          <h2>This month</h2>
           <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
             <div>
-              <div style={{ opacity: 0.8 }}>Days worked</div>
+              <div className="muted">Days worked</div>
               <div style={{ fontSize: '1.4rem' }}>{monthStats.daysWorked}</div>
             </div>
             <div>
-              <div style={{ opacity: 0.8 }}>Hours worked</div>
+              <div className="muted">Hours worked</div>
               <div style={{ fontSize: '1.4rem' }}>{formatHours(monthStats.hoursWorked)}</div>
             </div>
             <div>
-              <div style={{ opacity: 0.8 }}>Avg hours/day</div>
+              <div className="muted">Avg hours/day</div>
               <div style={{ fontSize: '1.4rem' }}>{formatHours(monthStats.hoursPerDayAvg)}</div>
             </div>
           </div>
@@ -116,30 +116,26 @@ export function HistoryPage() {
       ) : null}
 
       {shiftsQuery.data?.length ? (
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <div className="card">
+          <table className="table">
           <thead>
             <tr>
-              <th style={{ textAlign: 'left', padding: 8, borderBottom: '1px solid #ddd' }}>Opened</th>
-              <th style={{ textAlign: 'left', padding: 8, borderBottom: '1px solid #ddd' }}>Closed</th>
-              <th style={{ textAlign: 'left', padding: 8, borderBottom: '1px solid #ddd' }}>Duration</th>
+              <th>Opened</th>
+              <th>Closed</th>
+              <th>Duration</th>
             </tr>
           </thead>
           <tbody>
             {shiftsQuery.data.map((s) => (
               <tr key={s.id}>
-                <td style={{ padding: 8, borderBottom: '1px solid #eee' }}>
-                  {new Date(s.openedAtZurich).toLocaleString()}
-                </td>
-                <td style={{ padding: 8, borderBottom: '1px solid #eee' }}>
-                  {s.closedAtZurich ? new Date(s.closedAtZurich).toLocaleString() : 'OPEN'}
-                </td>
-                <td style={{ padding: 8, borderBottom: '1px solid #eee' }}>
-                  {formatDuration(s.openedAtUtc, s.closedAtUtc)}
-                </td>
+                <td>{new Date(s.openedAtZurich).toLocaleString()}</td>
+                <td>{s.closedAtZurich ? new Date(s.closedAtZurich).toLocaleString() : 'OPEN'}</td>
+                <td>{formatDuration(s.openedAtUtc, s.closedAtUtc)}</td>
               </tr>
             ))}
           </tbody>
-        </table>
+          </table>
+        </div>
       ) : shiftsQuery.isLoading ? null : (
         <p>No shifts yet.</p>
       )}
