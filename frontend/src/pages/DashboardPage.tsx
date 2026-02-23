@@ -72,7 +72,7 @@ export function DashboardPage() {
         </p>
         {open ? (
           <p>
-            Open since (Zurich): <b>{new Date(open.openedAtZurich).toLocaleString()}</b>
+            Open since: <b>{new Date(open.openedAtZurich).toLocaleString()}</b>
           </p>
         ) : null}
 

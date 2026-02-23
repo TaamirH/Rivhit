@@ -41,6 +41,9 @@ dotnet --info
 dotnet run --project backend/Rivhit.Api
 ```
 
+If the backend starts on a different port, set `frontend` env:
+- create `frontend/.env` with `VITE_API_BASE_URL=http://localhost:<port>`
+
 ## Environment Variables
 
 Backend (development):

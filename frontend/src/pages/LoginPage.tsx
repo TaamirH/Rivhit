@@ -8,8 +8,8 @@ export function LoginPage() {
   const loc = useLocation()
   const from = (loc.state as { from?: string } | null)?.from ?? '/dashboard'
 
-  const [email, setEmail] = useState('emp1@rivhit.local')
-  const [password, setPassword] = useState('Employee123!')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
 
@@ -21,7 +21,7 @@ export function LoginPage() {
       await login(email, password)
       nav(from, { replace: true })
     } catch (err: unknown) {
-      setError('Login failed. Check credentials and API availability.')
+      setError('Login failed. Check your email and password and try again.')
     } finally {
       setBusy(false)
     }

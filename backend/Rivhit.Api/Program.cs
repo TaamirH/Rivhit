@@ -103,7 +103,19 @@ builder.Services.AddCors(options =>
     options.AddPolicy("DevCors", policy =>
     {
         policy
-            .WithOrigins("http://localhost:5173")
+            // Vite may pick a different port (5173, 5174, ...).
+            // Dev-only: allow any localhost origin.
+            .SetIsOriginAllowed(origin =>
+            {
+                if (!Uri.TryCreate(origin, UriKind.Absolute, out var uri))
+                {
+                    return false;
+                }
+
+                var isLocalhost = uri.Host is "localhost" or "127.0.0.1";
+                var isHttp = uri.Scheme is "http" or "https";
+                return isLocalhost && isHttp;
+            })
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
