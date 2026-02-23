@@ -71,16 +71,26 @@ export function RegisterPage() {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [emailTouched, setEmailTouched] = useState(false)
+  const [passwordTouched, setPasswordTouched] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
 
   const emailError = validateEmail(email)
   const passwordError = validatePassword(password)
-  const canSubmit = !busy && !emailError && !passwordError
+  const showEmailError = (submitted || emailTouched) ? emailError : null
+  const showPasswordError = (submitted || passwordTouched) ? passwordError : null
+  const showFixErrors = submitted && !busy && (!!emailError || !!passwordError)
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault()
+    setSubmitted(true)
     setError(null)
+
+    // Don't attempt API call if client-side validation fails.
+    if (emailError || passwordError) return
+
     setBusy(true)
     try {
       await register(email, password)
@@ -102,28 +112,30 @@ export function RegisterPage() {
           <input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            onBlur={() => setEmailTouched(true)}
             autoComplete="email"
             inputMode="email"
             required
           />
         </label>
-        {emailError ? <p style={{ color: 'crimson', marginTop: 0 }}>{emailError}</p> : null}
+        {showEmailError ? <p style={{ color: 'crimson', marginTop: 0 }}>{showEmailError}</p> : null}
         <label>
           Password
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            onBlur={() => setPasswordTouched(true)}
             type="password"
             autoComplete="new-password"
             required
             minLength={8}
           />
         </label>
-        {passwordError ? <p style={{ color: 'crimson', marginTop: 0 }}>{passwordError}</p> : null}
+        {showPasswordError ? <p style={{ color: 'crimson', marginTop: 0 }}>{showPasswordError}</p> : null}
         <button disabled={busy} type="submit">
           {busy ? 'Creating...' : 'Create account'}
         </button>
-        {!canSubmit && !busy ? <p style={{ marginBottom: 0 }}>Fix the errors above to continue.</p> : null}
+        {showFixErrors ? <p style={{ marginBottom: 0 }}>Fix the errors above to continue.</p> : null}
         </form>
         {error ? <p style={{ color: 'crimson' }}>{error}</p> : null}
         <p style={{ marginBottom: 0 }}>
