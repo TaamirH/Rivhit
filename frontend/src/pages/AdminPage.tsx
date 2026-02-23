@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { fetchOpenShifts, closeShift, downloadShiftsCsv } from './admin/adminApi'
 import { AdminCloseShiftForm } from './admin/AdminCloseShiftForm'
-import { useAuth } from '../auth/AuthContext'
+import { useAuth } from '../auth/useAuth'
 
 export function AdminPage() {
   const { auth } = useAuth()

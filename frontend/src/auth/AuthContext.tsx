@@ -1,16 +1,8 @@
-import React, { createContext, useContext, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
+import { AuthContext, type AuthContextValue } from './AuthContextCore'
 import { api } from '../lib/api'
 import { clearAuthState, loadAuthState, saveAuthState } from '../lib/authStorage'
 import type { AuthState } from '../lib/authStorage'
-
-type AuthContextValue = {
-  auth: AuthState | null
-  login: (email: string, password: string) => Promise<void>
-  register: (email: string, password: string) => Promise<void>
-  logout: () => void
-}
-
-const AuthContext = createContext<AuthContextValue | undefined>(undefined)
 
 type AuthResponse = {
   accessToken: string
@@ -46,11 +38,5 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
-}
-
-export function useAuth() {
-  const ctx = useContext(AuthContext)
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider')
-  return ctx
 }
 
