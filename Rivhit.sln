@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "backend", "backend", "{BBDB1CB3-58F4-426D-B8C2-BD8339F5D5C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivhit.Api", "backend\Rivhit.Api\Rivhit.Api.csproj", "{14891CD5-DD76-404D-946C-A685DBBEE127}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rivhit.Api.Tests", "backend\Rivhit.Api.Tests\Rivhit.Api.Tests.csproj", "{C72E1366-FFEE-476D-BC11-041FE44F8693}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14891CD5-DD76-404D-946C-A685DBBEE127}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14891CD5-DD76-404D-946C-A685DBBEE127}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14891CD5-DD76-404D-946C-A685DBBEE127}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14891CD5-DD76-404D-946C-A685DBBEE127}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C72E1366-FFEE-476D-BC11-041FE44F8693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C72E1366-FFEE-476D-BC11-041FE44F8693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C72E1366-FFEE-476D-BC11-041FE44F8693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C72E1366-FFEE-476D-BC11-041FE44F8693}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{14891CD5-DD76-404D-946C-A685DBBEE127} = {BBDB1CB3-58F4-426D-B8C2-BD8339F5D5C6}
+		{C72E1366-FFEE-476D-BC11-041FE44F8693} = {BBDB1CB3-58F4-426D-B8C2-BD8339F5D5C6}
+	EndGlobalSection
+EndGlobal
