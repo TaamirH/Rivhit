@@ -2,7 +2,7 @@
 
 Time clock system that lets employees Clock In / Clock Out.
 
-Key rule: all punches are recorded using authoritative time fetched server-side from `worldtimeapi.org` for `Europe/Zurich`. The client never supplies timestamps.
+Key rule: all punches are recorded using authoritative time fetched server-side from an external API (`timeapi.io`) for `Europe/Zurich`. The client never supplies timestamps.
 
 ## Tech
 
@@ -15,9 +15,33 @@ Key rule: all punches are recorded using authoritative time fetched server-side 
 Prereqs:
 - Node.js (v20+ recommended)
 - .NET SDK 8 (installed into your user profile by `dotnet-install.ps1` if needed)
-- SQL Server (LocalDB / Developer edition / Docker)
+- SQL Server (Docker recommended for this repo)
 
-### Frontend
+### 1) Start SQL Server (Docker)
+
+```bash
+docker info
+docker compose up -d
+```
+
+Defaults used by this repo:
+- SQL Server: `localhost:1433`
+- User: `sa`
+- Password: `YourStrong!Passw0rd123` (see `docker-compose.yml`)
+
+### 2) Run the backend API
+
+The dev profile listens on `http://localhost:5150` and opens Swagger at `http://localhost:5150/swagger`.
+
+```bash
+dotnet --info
+dotnet run --project backend/Rivhit.Api --launch-profile http
+```
+
+### 3) Run the frontend
+
+Create `frontend/.env` (or copy `frontend/.env.example`) and point it to the backend:
+- `VITE_API_BASE_URL=http://localhost:5150`
 
 ```bash
 cd frontend
@@ -25,24 +49,7 @@ npm install
 npm run dev
 ```
 
-### Backend
-
-1) Start SQL Server (Docker)
-
-```bash
-docker info
-docker compose up -d
-```
-
-2) Run API
-
-```bash
-dotnet --info
-dotnet run --project backend/Rivhit.Api
-```
-
-If the backend starts on a different port, set `frontend` env:
-- create `frontend/.env` with `VITE_API_BASE_URL=http://localhost:<port>`
+Vite will print the local URL (typically `http://localhost:5173`).
 
 ## Environment Variables
 
@@ -61,7 +68,8 @@ You can register employees from the UI or via `POST /auth/register`.
 
 - If the external time API is unavailable, the backend rejects Clock In/Out (no fallback to local time).
 - Admin-only endpoints are separated from employee self-service endpoints.
- - Client never sends timestamps; backend fetches authoritative Zurich time per punch.
+- Client never sends timestamps; backend fetches authoritative Zurich time per punch.
+- Dev-only CORS allows any `http(s)://localhost:*` origin so Vite can use any port.
 
 ## Useful Endpoints
 
@@ -69,4 +77,5 @@ You can register employees from the UI or via `POST /auth/register`.
 - `POST /punches/clock-in`, `POST /punches/clock-out` (send `Idempotency-Key` header)
 - `GET /me/status`, `GET /me/shifts`
 - Admin: `GET /admin/open-shifts`, `POST /admin/shifts/{shiftId}/close`, `GET /admin/reports/shifts.csv`
+- Debug (dev): `GET /debug/time/zurich`
 
